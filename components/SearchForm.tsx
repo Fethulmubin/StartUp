@@ -13,9 +13,10 @@ const SearchForm = ({query}: {query:String}) => {
                 <Search className='size-5'/>
             </button>
 
-        </div>
+        </div> 
     </Form>
   )
 }
+
 
 export default SearchForm
