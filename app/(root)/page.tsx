@@ -1,6 +1,6 @@
 import React from 'react'
 import SearchForm from '../../components/SearchForm'
-import StartupCard from '@/components/StartupCard';
+import StartupCard, { StartupTypeCard } from '@/components/StartupCard';
 import { client } from '@/sanity/lib/client';
 import { STARTUPS_QUERY } from '@/sanity/lib/queries';
 
@@ -36,7 +36,7 @@ const Home = async ({ searchParams }: { searchParams: { query: string } }) => {
         
         <ul className='mt-7 card_grid'>
           {posts?.length > 0 ? (
-            posts.map((post, index)=>(
+            posts.map((post : StartupTypeCard)=>(
               <StartupCard key={post?._id} post={post}/>
             ))
           ): (
