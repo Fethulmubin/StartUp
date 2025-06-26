@@ -61,7 +61,7 @@ const StartUp = async ({ params }: { params: Promise<{ id: string }> }) => {
 
       </section>
       <Suspense fallback={<Skeleton className="view_skeleton"/>}>
-        <View id={id} views={startup.views} />
+        <View id={id}  />
       </Suspense>
     </>
   );
