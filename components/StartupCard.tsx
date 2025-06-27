@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { Startup } from "@/sanity/types";
 
-export type StartupTypeCard = Omit<Startup, "author"> & {author?: 'Author'}
+export type StartupTypeCard = Omit<Startup, "author"> & { author?: "Author" };
 const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   const {
     _createdAt,
@@ -23,7 +23,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
         <p className="startup_card_date">{formatDate(_createdAt)}</p>
         <div className="flex gap-1.5">
           <EyeIcon className="size-6 text-primary" />
-          <span className="text-16-medium">{views}</span> 
+          <span className="text-16-medium">{views}</span>
         </div>
       </div>
 
@@ -56,7 +56,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
           <p className="text-16-semibold">{category}</p>
         </Link>
         <Button className="startup-card_btn" asChild>
-            <Link href={`/startup/${_id}`}>View Startup</Link>
+          <Link href={`/startup/${_id}`}>View Startup</Link>
         </Button>
       </div>
     </li>
