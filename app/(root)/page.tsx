@@ -12,10 +12,14 @@ const Home = async ({ searchParams }: { searchParams: Promise<{ query: string }>
 
   // const posts = await client.fetch(STARTUPS_QUERY)
   // console.log(JSON.stringify(posts, null, 2));
+   
+  
+    
 
   const query = (await searchParams).query;
   const params = {search: query || null}
   const session = await auth()
+  console.log(session)
   const {data :posts} = await sanityFetch({query : STARTUPS_QUERY, params})
   
    

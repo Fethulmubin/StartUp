@@ -17,6 +17,8 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
     image,
     description,
   } = post;
+
+  
   return (
     <li className="startup-card group">
       <div className="flex-between">
@@ -38,7 +40,7 @@ const StartupCard = ({ post }: { post: StartupTypeCard }) => {
         </div>
         <Link href={`/startup/${_id}`}>
           <img
-            src="https://placehold.co/600x400"
+            src={author?.image}
             alt={title}
             width={48}
             height={48}

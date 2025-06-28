@@ -5,10 +5,16 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatDate(date : String){
-  return new Date(date).toLocaleDateString('en-US',{
-    month:"long",
-    day:"numeric",
-    year:"numeric"
-  })
+export function formatDate(date: string) {
+  if (!date) return ""; // handle null or undefined gracefully
+  return new Date(date).toLocaleDateString('en-US', {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+export function parseServerActionResponse<T>(response: T) {
+  return JSON.parse(JSON.stringify(response)) ;
+
 }

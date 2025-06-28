@@ -6,8 +6,16 @@ import { Button } from "./ui/button";
 import { error } from "console";
 import { z } from "zod";
 import { formSchema } from "@/lib/validation";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/hooks/use-toast";
+import { createPitch } from "@/lib/action";
 
+  
 const Startup_form = () => {
+  const router = useRouter();
+
+   
+  const {toast} = useToast();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pitch, setPitch] = useState("");
   // const [isPending, setIsPending] = useState(false);
@@ -24,14 +32,36 @@ const Startup_form = () => {
       }
       await formSchema.parseAsync(formValues);
       console.log(formValues)
+      const result = await createPitch(prevState, formData, pitch);
+      if(result.status === 'SUCCESS'){
+         toast({
+          title: 'Success',
+          description: 'Successfully submitted',
+        })
+       router.push(`/startup/${result._id}`)
+      }
+     
+      return result
+
 
     } catch (error) {
       if (error instanceof z.ZodError) {
         const filedErrors = error.flatten().fieldErrors;
 
         setErrors(filedErrors as unknown as Record<string, string>);
+
+        toast({
+          title: 'Validation Error',
+          description: 'Please check the form for errors.',
+          variant: 'destructive',
+        })
         return {...prevState, error: 'Validation failed', status: 'ERROR'};
       }
+       toast({
+          title: 'Validation Error',
+          description: 'Unexpected error occurred, please try again later.',
+          variant: 'destructive',
+        })
       return {...prevState, error: 'An unexpected error occurred', status: 'ERROR'};
     } finally{
 
