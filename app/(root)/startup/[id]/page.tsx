@@ -22,14 +22,14 @@ const StartUp = async ({ params }: { params: Promise<{ id: string }> }) => {
   const data = await client.fetch(STARTUP_QUERY_BY_ID, { id });
   if (!data) return notFound();
   const startup = data[0];
-  // console.log(startup)
+  console.log(startup)
   // console.log(post)
 
   return (
     <>
       <section className="pink_container !min-h-[230px]">
         <p className="tag">
-          {formatDate(startup.createdAt)} by {startup.author?.name}
+          {formatDate(startup._createdAt)} by {startup.author?.name}
         </p>
         <h1 className="heading">{startup.title}</h1>
         <p className="sub-heading !max-w-5xl">{startup.description}</p>

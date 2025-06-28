@@ -31,21 +31,23 @@ export const createPitch = async (
   });
 
   try {
-    const startup = {
-      title,
-      description,
-      category,
-      image: link,
-      slug: {
-        _type: slug,
-        current: slug,
-      },
-      author: {
-        _type: "reference",
-        _ref: session?.user.id,
-      },
-      pitch,
-    };
+   const startup = {
+  _type: "startup",
+  title,
+  description,
+  category,
+  image: link,
+  slug: {
+    _type: "slug", // ✅ Corrected here
+    current: slug,
+  },
+  author: {
+    _type: "reference",
+    _ref: session.id, // ✅ Assumes token.id was set from Sanity _id
+  },
+  pitch,
+};
+console.log("Author ID from session:", session?.id);
 
     const result = await writeClient.create({ _type: "startup", ...startup });
     return parseServerActionResponse({
