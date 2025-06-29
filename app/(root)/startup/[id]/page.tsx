@@ -1,11 +1,12 @@
 // app/startup/[id]/page.tsx or similar
 
 import { auth } from "@/auth";
+import StartupCard, { StartupTypeCard } from "@/components/StartupCard";
 import { Skeleton } from "@/components/ui/skeleton";
 import View from "@/components/View";
 import { formatDate } from "@/lib/utils";
 import { client } from "@/sanity/lib/client"; // Make sure this exports a configured Sanity client
-import { STARTUP_QUERY_BY_ID } from "@/sanity/lib/queries";
+import { PLAYLIST_BY_SLUG_QUERY, STARTUP_QUERY_BY_ID } from "@/sanity/lib/queries";
 // import {image} from '../../../../public/logo.png'
 // import { Image } from "lucide-react";
 import Link from "next/link";
@@ -17,13 +18,17 @@ export const dynamic = "force-dynamic"; // or use experimental_ppr as needed
 const StartUp = async ({ params }: { params: Promise<{ id: string }> }) => {
   const id = (await params).id;
   const session = await auth();
-  //  console.log(session)
 
-  const data = await client.fetch(STARTUP_QUERY_BY_ID, { id });
+  const [{select: editorPosts}, data] = await Promise.all([
+    client.fetch(PLAYLIST_BY_SLUG_QUERY, {slug: 'best-of-the-month'}),
+    client.fetch(STARTUP_QUERY_BY_ID, { id }),
+  ])
+
+  // const {select: editorPosts} = await client.fetch(PLAYLIST_BY_SLUG_QUERY, {slug: 'best-of-the-month'});
+  // const data = await client.fetch(STARTUP_QUERY_BY_ID, { id });
   if (!data) return notFound();
   const startup = data[0];
   console.log(startup)
-  // console.log(post)
 
   return (
     <>
@@ -61,7 +66,19 @@ const StartUp = async ({ params }: { params: Promise<{ id: string }> }) => {
 
         </div>
         <hr className="divider" />
+        {editorPosts.length > 0 && (
+          <div className="max-w-4xl mx-auto">
+              <p className="text-30-semibold">
+                Best Of The Month
+              </p>
+              <ul className="mt-7 card_grid-sm">
+                {editorPosts.map((post : StartupTypeCard)=>(
+                  <StartupCard key={post._id} post={post}/>
+                ))}
 
+              </ul>
+          </div>
+        )}
       </section>
       <Suspense fallback={<Skeleton className="view_skeleton"/>}>
         <View id={id}  />
