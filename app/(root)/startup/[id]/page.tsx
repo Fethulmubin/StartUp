@@ -72,19 +72,19 @@ const StartUp = async ({ params }: { params: Promise<{ id: string }> }) => {
                 </p>
               </div>
             </Link>
-
             <p className="category-tag">{startup.category}</p>
-            {/* pitch details */}
-            <h3 className="text-30-bold">Pitch Details</h3>
-            {parsedContent ? (
-              <article
-                className="prose max-w-4xl font-work-sans break-all"
-                dangerouslySetInnerHTML={{ __html: parsedContent }}
-              />
-            ) : (
-              <p className="no-result">No details provided</p>
-            )}
           </div>
+          
+          {/* pitch details */}
+          <h3 className="text-30-bold">Pitch Details</h3>
+          {parsedContent ? (
+            <article
+              className="prose max-w-4xl font-work-sans break-all"
+              dangerouslySetInnerHTML={{ __html: parsedContent }}
+            />
+          ) : (
+            <p className="no-result">No details provided</p>
+          )}
 
           {/* best of month */}
         </div>
