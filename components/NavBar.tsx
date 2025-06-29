@@ -1,13 +1,15 @@
 import { auth, signIn, signOut } from '@/auth'
 import { BadgePlus, LogOut } from 'lucide-react'
 import Link from 'next/link'
+import { Avatar } from './ui/avatar'
+import { AvatarImage, AvatarFallback } from '@radix-ui/react-avatar'
 // import React from 'react'
 
 const NavBar = async () => {
     const session = await auth()
     return (
         <header className='px-5 py-3 bg-white shadow-sm font-work-sans'>
-            <nav className='flex items-center justify-between'>
+            <nav className='flex items-center font-semibold justify-between'>
                 <Link href='/' className='text-2xl font-bold'>
                     <img src="/logo.png" alt="logo" />
                 </Link>
@@ -29,7 +31,11 @@ const NavBar = async () => {
                                 </button>
                             </form>
                             <Link href={`/user/${session?.user.id}`}>
-                                <span>{session?.user?.name}</span>
+                                {/* <span>{session?.user?.name}</span> */}
+                                <Avatar className='size-10'>
+                                    <AvatarImage src={session?.user?.image || ''} alt=''/>
+                                    <AvatarFallback>AV</AvatarFallback>
+                                </Avatar>
                             </Link>
                         </>
                     ) : (
