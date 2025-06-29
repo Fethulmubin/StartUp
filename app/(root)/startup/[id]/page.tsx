@@ -39,7 +39,7 @@ const StartUp = async ({ params }: { params: Promise<{ id: string }> }) => {
 
         <div className="space-y-5 mt-5 max-w-4xl mx-auto">
           <div className="flex-between gap-5">
-            <Link className='flex gap-2 items-center mb-3' href={`user/${startup.author?._id}`}>
+            <Link className='flex gap-2 items-center mb-3' href={`/user/${startup.author?._id}`}>
               <img
               src={startup.author?.image}
               alt="avatar"
