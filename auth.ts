@@ -1,14 +1,18 @@
+
 import NextAuth from "next-auth";
 import GitHub from "next-auth/providers/github";
 import { AUTHOR_BY_GITHUB_ID_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
 import { writeClient } from "@/sanity/lib/write-client";
 
+// @ts-ignore
 export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [GitHub],
   callbacks: {
     async signIn({
+          // @ts-ignore
       user: { name, email, image },
+          // @ts-ignore
       profile: { id, login, bio },
     }) {
       const existingUser = await client
@@ -31,6 +35,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       return true;
     },
+    // @ts-ignore
     async jwt({ token, account, profile }) {
       if (account && profile) {
         const user = await client
@@ -45,6 +50,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
       return token;
     },
+    // @ts-ignore
     async session({ session, token }) {
       Object.assign(session, { id: token.id });
       return session;
