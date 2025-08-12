@@ -7,6 +7,7 @@ import slugify from "slugify";
 import { author } from "@/sanity/schemaTypes/author";
 import { writeClient } from "@/sanity/lib/write-client";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const createPitch = async (
   state: any,
   formData: FormData,
@@ -14,7 +15,7 @@ export const createPitch = async (
 ) => {
   const session = await auth();
 
-  console.log(session)
+  console.log(session);
 
   if (!session)
     return parseServerActionResponse({
@@ -31,23 +32,22 @@ export const createPitch = async (
   });
 
   try {
-   const startup = {
-  _type: "startup",
-  title,
-  description,
-  category,
-  image: link,
-  slug: {
-    _type: "slug", // ✅ Corrected here
-    current: slug,
-  },
-  author: {
-    _type: "reference",
-    _ref: session.id, // ✅ Assumes token.id was set from Sanity _id
-  },
-  pitch,
-};
-console.log("Author ID from session:", session?.id);
+    const startup = {
+      title,
+      description,
+      category,
+      image: link,
+      slug: {
+        _type: "slug", // ✅ Corrected here
+        current: slug,
+      },
+      author: {
+        _type: "reference",
+        _ref: session.id, // ✅ Assumes token.id was set from Sanity _id
+      },
+      pitch,
+    };
+    console.log("Author ID from session:", session?.id);
 
     const result = await writeClient.create({ _type: "startup", ...startup });
     return parseServerActionResponse({

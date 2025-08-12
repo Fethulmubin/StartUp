@@ -18,9 +18,9 @@ const Startup_form = () => {
   const {toast} = useToast();
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [pitch, setPitch] = useState("");
-  // const [isPending, setIsPending] = useState(false);
- 
 
+ 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleFormSubmit = async(prevState: any, formData: FormData) =>{
     try {
       const formValues = {

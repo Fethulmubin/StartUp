@@ -11,6 +11,7 @@ import {
   STARTUP_QUERY_BY_ID,
 } from "@/sanity/lib/queries";
 import markdownit from "markdown-it";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import React, { Suspense } from "react";
@@ -45,7 +46,9 @@ const StartUp = async ({ params }: { params: Promise<{ id: string }> }) => {
         <p className="sub-heading !max-w-5xl">{startup.description}</p>
       </section>
       <section className="section_container">
-        <img
+        <Image
+          width={800}
+          height={600}
           src={startup.image}
           alt="startup"
           className="w-full h-auto rounded-xl"
@@ -57,7 +60,7 @@ const StartUp = async ({ params }: { params: Promise<{ id: string }> }) => {
               className="flex gap-2 items-center mb-3"
               href={`/user/${startup.author?._id}`}
             >
-              <img
+              <Image
                 src={startup.author?.image}
                 alt="avatar"
                 width={64}

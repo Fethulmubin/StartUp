@@ -1,8 +1,9 @@
 import { auth, signIn, signOut } from '@/auth'
-import { BadgePlus, LogOut } from 'lucide-react'
+import { BadgePlus, Github, LogOut } from 'lucide-react'
 import Link from 'next/link'
 import { Avatar } from './ui/avatar'
 import { AvatarImage, AvatarFallback } from '@radix-ui/react-avatar'
+import { Button } from './ui/button'
 // import React from 'react'
 
 const NavBar = async () => {
@@ -44,7 +45,10 @@ const NavBar = async () => {
                             <form action={async () => {
                                 "use server"
                                 await signIn('github')}}>
-                                    <button type="submit">Sign In</button>
+                                    <Button className='py-5 flex gap-2 text-white' type="submit">
+                                        <Github size={16}/>
+                                        Sign In
+                                    </Button>
                             </form>
 
                         </Link>
