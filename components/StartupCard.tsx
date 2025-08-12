@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { Startup } from "@/sanity/types";
 
-export type StartupTypeCard = Omit<Startup, "author"> & { author?: "Author" };
+export type StartupTypeCard = Omit<Startup, "author"> & { author?: { _id: string; name: string; image?: string } };
 const StartupCard = ({ post }: { post: StartupTypeCard }) => {
   const {
     _createdAt,
